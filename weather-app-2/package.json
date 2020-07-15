@@ -1,0 +1,22 @@
+{
+  "name": "weather-app-2",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "env-cmd -f ./config/dev.env node app.js",
+    "for": "env-cmd -f ./config/dev.env node utils/forecast.js",
+    "geo": "env-cmd -f ./config/dev.env node utils/geolocation.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "env-cmd": "^10.1.0"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "postman-request": "^2.88.1-postman.23"
+  },
+  "description": ""
+}
