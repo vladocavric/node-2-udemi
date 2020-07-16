@@ -1,0 +1,446 @@
+{
+	"info": {
+		"_postman_id": "13b0bcc2-e0c2-4a6b-800d-10c6efe70c54",
+		"name": "Task App",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "create user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "aa4bed59-587d-4b8a-809e-419e2d382d66",
+						"exec": [
+							"if (pm.response.code === 201) {\r",
+							"    pm.environment.set('authToken', pm.response.json().token)\r",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Jirgin 4\",\n\t\"email\": \"jurgenklopp.testiti+4@gmail.com\",\n\t\"password\": \"dovla123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/users",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create task",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"description\": \"treba ici na posao\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/tasks",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"tasks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "read users",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"post+2@sdfsdfs.sdfsl\",\n\t\"password\": \"dovla321\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/users/5eea0972b730692decc376ad/avatar",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"users",
+						"5eea0972b730692decc376ad",
+						"avatar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "read user me",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/users/me",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"users",
+						"me"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "read tasks",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/tasks",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"tasks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "read task single",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/tasks",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"tasks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "edit user",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Milan\",\n\t\"age\": 32\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/users/me",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"users",
+						"me"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "edit task",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"done\": \"true\",\n\t\"description\": \"editovan nikolijin task\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/tasks/5ec6f1d65c93210d5e5fca84",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"tasks",
+						"5ec6f1d65c93210d5e5fca84"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete user",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/users/me",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"users",
+						"me"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete tasks",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/tasks/5ec6f2965c93210d5e5fca87",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"tasks",
+						"5ec6f2965c93210d5e5fca87"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c2e3ce90-6ec1-4210-b037-e9292f0e4310",
+						"exec": [
+							"if (pm.response.code === 200) {\r",
+							"    pm.environment.set('authToken', pm.response.json().token)\r",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"jurgenklopp.testiti+4@gmail.com\",\n\t\"password\": \"dovla123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/users/login",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"users",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "logout",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/users/logout",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"users",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "logout-all",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/users/logout-all",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"users",
+						"logout-all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "upload profile picture",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "avatar",
+							"type": "file",
+							"src": "/C:/Users/Vlado/Downloads/node cours files/profile-pic.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/users/me/avatar",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"users",
+						"me",
+						"avatar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "upload task picture",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/C:/Users/Vlado/Downloads/node cours files/profile-pic.jpg"
+						}
+					],
+					"options": {
+						"formdata": {}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/tasks/5eea0a22b730692decc376af/image",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"tasks",
+						"5eea0a22b730692decc376af",
+						"image"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{authToken}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "db729a9d-6311-4b8f-a11f-bafcde2eeb30",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "e7d3fcd6-4415-4049-afd6-eaa9d977dfe6",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
