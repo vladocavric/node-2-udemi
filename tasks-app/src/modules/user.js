@@ -1,5 +1,7 @@
 const mongoose = require('mongoose')
 const validator = require('validator')
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken')
 
 //======================================================================================================================
 
@@ -14,6 +16,7 @@ const userSchema = new mongoose.Schema({
         required: true,
         trim: true,
         lowercase: true,
+        unique: true,
         validate(value) {
             if (!validator.isEmail(value)) {
                 throw new Error('This is not en email')
@@ -40,7 +43,45 @@ const userSchema = new mongoose.Schema({
                 throw new Error('the age cant be negative')
             }
         }
+    },
+    tokens: [{
+        token: {
+            type: String,
+            required: true
+        }
+    }]
+})
+
+//generate user tocken
+userSchema.methods.generateAuthToken = async function () {
+    const user = this
+    const token = jwt.sign({ _id: user._id.toString()}, 'doingthecoursefor2ndtime')
+    user.tokens = user.tokens.concat({token})
+    user.save()
+    return user
+}
+
+//login
+userSchema.statics.findByCredentials= async (email, password) => {
+    const user = await User.findOne({email})
+    if (!user) {
+        throw new Error('wrong credentials')
     }
+    const isMatch = await bcrypt.compare(password, user.password)
+    if (!isMatch) {
+        throw new Error('wrong credentials')
+    }
+
+    return user
+}
+
+//hash the password
+userSchema.pre('save', async function (next) {
+    const user = this
+    if (user.isModified('password')) {
+        user.password = await bcrypt.hash(user.password, 8)
+    }
+    next()
 })
 
 const User = mongoose.model('User', userSchema)

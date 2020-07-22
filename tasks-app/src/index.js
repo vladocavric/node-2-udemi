@@ -1,5 +1,6 @@
 //======================================================================================================================
 const express = require('express')
+const jwt = require('jsonwebtoken')
 const dbConnection = require('./db/mongoose')
 const User = require('./modules/user')
 const Task = require('./modules/task')
@@ -20,3 +21,16 @@ app.listen(port, (err) => {
     }
     console.log(`server radi na portu ${port}`)
 })
+
+
+
+// const myApp = async () => {
+//     const token = jwt.sign({ _id: 'nesto'}, 'doingthecoursefor2ndtime', {expiresIn: '2 days'})
+//     console.log(token)
+//
+//     const data = jwt.verify(token, 'doingthecoursefor2ndtime')
+//     console.log(data)
+// }
+//
+// myApp()
+
