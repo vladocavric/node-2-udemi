@@ -1,4 +1,5 @@
 const express = require('express')
+const auth = require('../middleware/auth')
 const User = require('../modules/user')
 const router = new express.Router()
 //======================================================================================================================
@@ -6,16 +7,24 @@ router.post('/login', async (req, res) => {
     try {
         const user = await User.findByCredentials(req.body.email, req.body.password)
         const token = await user.generateAuthToken()
-        res.send({user})
+        res.send({user, token})
     } catch (e) {
         res.status(400).send(e)
     }
 })
 //======================================================================================================================
-router.get('/', async (req, res) => {
+// router.get('/', auth, async (req, res) => {
+//     try {
+//         const users = await User.find({})
+//         res.send(users)
+//     } catch (e) {
+//         res.status(500).send(e)
+//     }
+// })
+
+router.get('/me', auth, async (req, res) => {
     try {
-        const users = await User.find({})
-        res.send(users)
+        res.send(req.user)
     } catch (e) {
         res.status(500).send(e)
     }
@@ -30,7 +39,7 @@ router.post('/', async (req, res) => {
     try {
         await user.save()
         const token = await user.generateAuthToken()
-        res.status(201).send(user)
+        res.status(201).send({user, token})
     } catch (e) {
         res.status(400).send(e)
     }
@@ -80,6 +89,29 @@ router.delete('/:id', async (req, res) => {
         res.redirect('/users')
     } catch (e) {
         res.status(500).send(e)
+    }
+})
+
+router.post('/logout', auth, async (req, res) => {
+    try {
+        req.user.tokens = req.user.tokens.filter((token) => {
+            return token.token !== req.token
+        })
+
+        await req.user.save()
+        res.status(200).send()
+    } catch (e) {
+        res.status(400).send(e)
+    }
+})
+router.post('/logout-all', auth, async (req, res) => {
+    try {
+        req.user.tokens = []
+
+        await req.user.save()
+        res.status(200).send()
+    } catch (e) {
+        res.status(400).send(e)
     }
 })
 //======================================================================================================================

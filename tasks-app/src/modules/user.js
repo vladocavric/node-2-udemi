@@ -52,13 +52,23 @@ const userSchema = new mongoose.Schema({
     }]
 })
 
+userSchema.methods.toJSON = function () {
+    const user = this
+    const userObject = user.toObject()
+
+    delete userObject.password
+    delete userObject.tokens
+
+    return userObject
+}
+
 //generate user tocken
 userSchema.methods.generateAuthToken = async function () {
     const user = this
     const token = jwt.sign({ _id: user._id.toString()}, 'doingthecoursefor2ndtime')
     user.tokens = user.tokens.concat({token})
     user.save()
-    return user
+    return  token
 }
 
 //login
