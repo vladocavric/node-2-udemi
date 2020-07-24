@@ -1,20 +1,25 @@
 const express = require('express')
 const Task = require('../modules/task')
+const auth = require('../middleware/auth')
 const router = new express.Router()
 
 //======================================================================================================================
-router.get('/', async (req, res) => {
+router.get('/', auth, async (req, res) => {
     try {
-        const tasks = await Task.find({})
+        const tasks = await Task.find({author: req.user.id})
         res.send(tasks)
     } catch (e) {
         res.status(500).send(e)
     }
 })
 
-router.post('/', async (req, res) => {
+
+router.post('/', auth, async (req, res) => {
     try {
-        const task = new Task(req.body)
+        const task = new Task({
+            ...req.body,
+            author: req.user._id
+        })
         await task.save()
         res.status(201).send(task)
     } catch (e) {
@@ -22,21 +27,22 @@ router.post('/', async (req, res) => {
     }
 })
 
-router.get('/:id', async (req, res) => {
+
+router.get('/:id', auth, async (req, res) => {
     try {
-        const task = await Task.findById(req.params.id)
+        const task = await Task.findOne({_id: req.params.id, author: req.user.id})
         if (!task) {
             throw new Error()
         }
         await res.send(task)
     } catch (e) {
-        res.status(404).send('There is no task with that id')
+        res.status(404).send('There is no YOUR task with that id')
     }
 })
 
-router.patch('/:id', async (req, res) => {
+router.patch('/:id', auth, async (req, res) => {
     try {
-        const task = await Task.findById(req.params.id)
+        const task = await Task.findOne({_id: req.params.id, author: req.user.id})
         // const task = await Task.findByIdAndUpdate(req.params.id, req.body, {new: true, runValidators: true})
         if (!task) {
             return res.status(404).send('There is no task with that id')
@@ -58,9 +64,9 @@ router.patch('/:id', async (req, res) => {
     }
 })
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', auth, async (req, res) => {
     try {
-        const task = await Task.findByIdAndDelete(req.params.id)
+        const task = await Task.findOneAndDelete({_id: req.params.id, author: req.user.id})
         if (!task) {
             return res.status(404).send('There is no task with that id')
         }

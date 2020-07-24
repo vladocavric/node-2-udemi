@@ -34,13 +34,6 @@ app.use('/tasks', taskRouter)
 
 
 //======================================================================================================================
-
-  app.get('/nesto', (req, res) => {
-
-      console.log(token)
-      res.send('nesto')
-  })
-
 app.listen(port, (err) => {
     if (err) {
         return console.log(err)
@@ -48,15 +41,15 @@ app.listen(port, (err) => {
     console.log(`server radi na portu ${port}`)
 })
 
-
-
-// const myApp = async () => {
-//     const token = jwt.sign({ _id: 'nesto'}, 'doingthecoursefor2ndtime', {expiresIn: '2 days'})
-//     console.log(token)
-//
-//     const data = jwt.verify(token, 'doingthecoursefor2ndtime')
-//     console.log(data)
-// }
-//
-// myApp()
-
+  // const myFunction = async () => {
+  //   // const task = await Task.findById('5f1aea478d8aa061740a2394')
+  //   //   await task.populate('author').execPopulate()
+  //   //   console.log(task.author)
+  //     const user = await User.findById('5f1ae28ec4276559a5e4a35c')
+  //     await user.populate('tasks').execPopulate()
+  //     console.log(user.tasks)
+  //
+  // }
+  //
+  //
+  // myFunction()
