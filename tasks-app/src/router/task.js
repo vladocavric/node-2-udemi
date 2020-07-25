@@ -4,10 +4,33 @@ const auth = require('../middleware/auth')
 const router = new express.Router()
 
 //======================================================================================================================
+// get   /tasks?completed=true
+// get   /tasks?limit=10&skip=10
+// get   /tasks?sortBy=completed_dis
 router.get('/', auth, async (req, res) => {
+    // const match = {author: req.user.id}
+    const match = {}
+    const sort = {}
+    if (req.query.completed) {
+        match.completed = req.query.completed === "true"
+    }
+    if (req.query.sortBy) {
+        const parts = req.query.sortBy.split('-')
+        sort[parts[0]] = parts[1] === 'disc' ? -1 : 1
+    }
     try {
-        const tasks = await Task.find({author: req.user.id})
-        res.send(tasks)
+        // const tasks = await Task.find(match)
+        await req.user.populate({
+            path: 'tasks',
+            match,
+            options: {
+                limit: parseInt(req.query.limit),
+                skip: parseInt(req.query.skip),
+                sort
+            }
+        }).execPopulate()
+        res.send(req.user.tasks)
+        // res.send(tasks)
     } catch (e) {
         res.status(500).send(e)
     }
