@@ -10,7 +10,12 @@ const userSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
-        trim: true
+        trim: true,
+        validate(value) {
+            if (!value.match(/^[A-Za-z\.\s]+$/)) {
+                throw new Error('This is not en email')
+            }
+        }
     },
     email: {
         type: String,
@@ -79,14 +84,14 @@ userSchema.methods.toJSON = function () {
 //generate user tocken
 userSchema.methods.generateAuthToken = async function () {
     const user = this
-    const token = jwt.sign({ _id: user._id.toString()}, 'doingthecoursefor2ndtime')
+    const token = jwt.sign({_id: user._id.toString()}, 'doingthecoursefor2ndtime')
     user.tokens = user.tokens.concat({token})
     user.save()
-    return  token
+    return token
 }
 
 //login
-userSchema.statics.findByCredentials= async (email, password) => {
+userSchema.statics.findByCredentials = async (email, password) => {
     const user = await User.findOne({email})
     if (!user) {
         throw new Error('wrong credentials')

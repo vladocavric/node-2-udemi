@@ -13,6 +13,9 @@ const taskSchema = new mongoose.Schema({
         required: true,
         default: false
     },
+    img: {
+        type: Buffer
+    },
     author: {
         type: mongoose.Schema.Types.ObjectID,
         required: true,

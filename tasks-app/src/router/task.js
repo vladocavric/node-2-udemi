@@ -1,8 +1,55 @@
 const express = require('express')
+const multer = require('multer')
+const sharp = require('sharp')
 const Task = require('../modules/task')
 const auth = require('../middleware/auth')
 const router = new express.Router()
 
+//======================================================================================================================
+const upload = multer({
+    limits: {
+        fileSize: 1000000
+    },
+    fileFilter(req, file, cb) {
+        if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
+            return cb(new Error('please upload Image'))
+        }
+        cb(undefined, true)
+    }
+})
+//======================================================================================================================
+router.post('/:id/img', auth, upload.single('img'), async (req, res) => {
+    const buffer = await sharp(req.file.buffer).resize({width: 250, height: 250}).png().toBuffer()
+    const task = await Task.findOne({_id: req.params.id, author: req.user.id})
+    // const task = await Task.findByIdAndUpdate(req.params.id, req.body, {new: true, runValidators: true})
+    if (!task) {
+        return res.status(404).send('There is no task with that id')
+    }
+    task.img = buffer
+    try {
+        await task.save()
+        res.set('Content-Type', 'image/png')
+        res.send(task.img)
+    } catch (e) {
+        res.status(400).send()
+    }
+})
+
+router.get('/:id/img', auth, async (req, res) => {
+    try {
+        const task = await Task.findOne({_id: req.params.id, author: req.user.id})
+        if (!task) {
+            throw new Error()
+        }
+
+        res.set('Content-Type', 'image/png')
+        res.send(task.img)
+
+
+    } catch (e) {
+        res.status(404).send()
+    }
+})
 //======================================================================================================================
 // get   /tasks?completed=true
 // get   /tasks?limit=10&skip=10
@@ -98,6 +145,9 @@ router.delete('/:id', auth, async (req, res) => {
         res.status(500).send(e)
     }
 })
+//======================================================================================================================
+//upload image for task routh
+
 //======================================================================================================================
 
 module.exports = router

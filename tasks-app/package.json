@@ -4,9 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "./node_modules/.bin/env-cmd -f ./config/test.env jest --watch --detectOpenHandles --runInBand",
     "start": "node src/index.js",
     "dev": "./node_modules/.bin/env-cmd -f ./config/dev.env nodemon src/index.js -e js,hbs"
+  },
+  "jest": {
+    "testEnvironment": "node"
   },
   "keywords": [],
   "author": "",
@@ -20,10 +23,12 @@
     "mongoose": "^5.9.22",
     "multer": "^1.4.2",
     "sharp": "^0.25.4",
+    "supertest": "^4.0.2",
     "validator": "^13.1.1"
   },
   "devDependencies": {
     "env-cmd": "^10.1.0",
+    "jest": "^26.1.0",
     "nodemon": "^2.0.4"
   }
 }
