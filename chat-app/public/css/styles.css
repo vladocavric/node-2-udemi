@@ -1,0 +1,298 @@
+/* General Styles */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+}
+
+input {
+    font-size: 14px;
+}
+
+body {
+    line-height: 1.4;
+    color: #333333;
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+h1 {
+    margin-bottom: 16px;
+}
+
+label {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 8px;
+    color: #777;
+}
+
+input {
+    border: 1px solid #3a8a4f;
+    padding: 12px;
+    outline: none;
+}
+
+select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.btn, button, input[type="submit"] {
+    cursor: pointer;
+    padding: 12px;
+    background: #3a8a4f;
+    border: none;
+    color: white;
+    font-size: 16px;
+    transition: background .3s ease;
+}
+
+.btn:hover, button:hover, input[type="submit"]:hover {
+    background: #0d521d;
+}
+
+button:disabled {
+    cursor: default;
+    background: #98d4a6;
+}
+
+.chat__sidebar .btn {
+   text-align: center;
+    text-decoration: none;
+    width: 100%;
+
+}
+/* Join Page Styles */
+
+.centered-form {
+    background: #0a1f0f;
+    width: 100vw;
+    height: 100vh;   
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.centered-form__box {
+    box-shadow: 0px 0px 17px 1px #1D1F26;
+    background: #F7F7FA;
+    padding: 24px;
+    width: 250px;
+}
+
+.centered-form button {
+    width: 100%;
+}
+
+.centered-form input {
+    margin-bottom: 16px;
+    width: 100%;
+}
+
+/* Chat Page Layout */
+
+.chat {
+    display: flex;
+}
+
+.chat__sidebar {
+    height: 100vh;
+    color: white;
+    background: #0a1f0f;
+    width: 225px;
+    min-width: 125px;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /*direction: column;*/
+}
+
+/* Chat styles */
+
+.chat__main {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    max-height: 100vh;
+}
+
+.chat__messages {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    padding: 24px 24px 0 24px;
+    overflow-y: scroll;
+}
+
+/* Message Styles */
+
+.message-wrapper {
+    display: flex;
+}
+
+.message {
+    margin-bottom: 16px;
+    padding: 7px 20px;
+    border: 1px solid #3a8a4f;
+    border-radius: 0 7px 7px 7px;
+    max-width: 100%;
+}
+
+.message p {
+    word-wrap: break-word;
+}
+
+.message.my-message {
+    margin-left: auto;
+    background: #3a8a4f;
+    color: white;
+    border-radius: 7px 0 7px 7px;
+}
+
+.message__name {
+    font-weight: 600;
+    font-size: 14px;
+    margin-right: 8px;
+}
+
+.message .message__meta {
+    color: #3a8a4f;
+    font-size: 14px;
+}
+
+.my-message .message__meta {
+    color: white;
+}
+
+.message a {
+    color: #3a8a4f;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.message.my-message a {
+    color: white
+}
+
+.manual-scroll {
+    background: #ffffff70;
+    width: 50px;
+    height: 50px;
+    position: fixed;
+    bottom: 100px;
+    right: 50px;
+    border: 3px solid #3a8a4f70;
+    border-radius: 50%;
+
+}
+
+.arrow-1, .arrow-2 {
+    width: 18px;
+    height: 18px;
+    border-top: 3px solid #3a8a4f70;
+    border-left: 3px solid #3a8a4f70;
+    border-radius:  30% 0 0 0;
+    position: relative;
+    transform: rotate(-135deg);
+    right: -13px;
+    bottom: -3px;
+    transition: bottom .3s ease;
+}
+
+.arrow-1 {
+    transition-delay: .15s;
+}
+
+.arrow-2 {
+    bottom: 5px;
+}
+
+.manual-scroll:hover .arrow-1{
+    bottom: -8px;
+}
+
+.manual-scroll:hover .arrow-2{
+    bottom: 0;
+}
+
+/* Message Composition Styles */
+
+.compose {
+    display: flex;
+    flex-shrink: 0;
+    margin-top: 16px;
+    padding: 24px;
+}
+
+.compose form {
+    display: flex;
+    flex-grow: 1;
+    margin-right: 16px;
+}
+
+.compose input {
+    border: 1px solid #3a8a4f;
+    width: 100%;
+    padding: 12px;
+    margin: 0 16px 0 0;
+    flex-grow: 1;
+}
+
+.compose button {
+    font-size: 14px;
+}
+
+/* Chat Sidebar Styles */
+
+.room-title {
+    font-weight: 400;
+    font-size: 22px;
+    background: #103319;
+    padding: 24px;   
+}
+
+.list-title {
+    font-weight: 500;
+    font-size: 18px;
+    margin-bottom: 4px;
+    padding: 12px 24px 0 24px;
+}
+
+.users {
+    list-style-type: none;
+    font-weight: 300;
+    padding-top: 15px;
+
+}
+
+.users li {
+    padding: 12px 24px;
+}
+
+.users li:nth-child(even) {
+  background: #103319;
+}
+
+.d-none {
+    display: none;
+}
+
+@media only screen and (min-width: 768px) {
+    .message {
+        max-width: 75%;
+    }
+}
+
+@media only screen and (min-width: 1024px) {
+    .message {
+        max-width: 50%;
+    }
+}
