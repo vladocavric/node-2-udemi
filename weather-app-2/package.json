@@ -15,7 +15,7 @@
     "env-cmd": "^10.1.0"
   },
   "dependencies": {
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "postman-request": "^2.88.1-postman.23"
   },
   "description": ""
